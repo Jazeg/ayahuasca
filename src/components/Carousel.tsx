@@ -1,3 +1,4 @@
+// src/components/Carousel.tsx
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -42,18 +43,26 @@ export default function Carousel() {
   }, [currentIndex]);
 
   return (
-    <div className="relative h-[600px] w-full group">
+    <div className="relative h-screen w-full group">
       <div
         style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
         className="w-full h-full bg-center bg-cover duration-500 relative"
       >
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+        {/* Overlay con gradiente para mejorar la visibilidad del Navbar transparente */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-black/50"></div>
         
         {/* Content */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
           <h2 className="text-4xl md:text-6xl font-bold mb-4">{slides[currentIndex].title}</h2>
           <p className="text-xl md:text-2xl">{slides[currentIndex].description}</p>
+          <div className="mt-8">
+            <a
+              href="/contacto"
+              className="bg-indigo-600 text-white px-8 py-3 rounded-md text-lg font-medium hover:bg-indigo-700 transition-colors duration-300"
+            >
+              Contáctanos
+            </a>
+          </div>
         </div>
       </div>
 
