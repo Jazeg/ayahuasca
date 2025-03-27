@@ -35,8 +35,6 @@ export default function Navbar() {
     };
   }, []);
 
-  // Determinar si estamos en la página de inicio
-
   // Definir enlaces de navegación para facilitar el mantenimiento
   const navLinks = [
     { to: "/", label: "Inicio" },
@@ -54,33 +52,38 @@ export default function Navbar() {
 
   return (
     <nav 
-      className={`w-full z-50 transition-all duration-300 fixed top-0 ${
+      className={`fixed w-full max-w-6xl mx-auto left-0 right-0 z-50 transition-all duration-300 rounded-lg mt-4 ${
         scrolled 
-          ? 'bg-white py-4 shadow-md' // Aumentado de py-2 a py-4
-          : 'bg-white/80 backdrop-blur-md py-5' // Aumentado de py-3 a py-5
+          ? 'bg-white/95 backdrop-blur-md shadow-md py-3' 
+          : 'bg-white/80 backdrop-blur-md py-4'
       }`}
+      style={{
+        backdropFilter: 'blur(8px)',
+        WebkitBackdropFilter: 'blur(8px)',
+        boxShadow: scrolled ? '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)' : 'none'
+      }}
     >
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
             {/* Logo */}
             <Link to="/" className="flex-shrink-0 flex items-center">
-              <Calendar className="h-5 w-5 text-indigo-600" />
-              <span className="ml-2 text-base font-bold text-gray-800">
+              <Calendar className="h-6 w-6 text-indigo-600" />
+              <span className="ml-2 text-lg font-bold text-gray-800">
                 TuMarca
               </span>
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:ml-8 md:flex md:space-x-4">
+            <div className="hidden md:ml-8 md:flex md:space-x-1">
               {navLinks.map((link) => (
                 <Link 
                   key={link.to}
                   to={link.to} 
-                  className={`px-2 py-1 text-sm font-medium transition-colors ${
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
                     isActive(link.to)
-                      ? 'text-indigo-600 border-b-2 border-indigo-600'
-                      : 'text-gray-700 hover:text-indigo-600'
+                      ? 'text-indigo-600 bg-indigo-50'
+                      : 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50'
                   }`}
                 >
                   {link.label}
@@ -90,16 +93,16 @@ export default function Navbar() {
           </div>
 
           {/* Right side items */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-5">
             {/* Social Media Icons */}
-            <div className="flex space-x-2">
-              <a href="#" className="text-gray-600 hover:text-indigo-600">
+            <div className="flex space-x-3">
+              <a href="#" className="text-gray-500 hover:text-indigo-600 transition-colors duration-200">
                 <Facebook className="h-4 w-4" />
               </a>
-              <a href="#" className="text-gray-600 hover:text-indigo-600">
+              <a href="#" className="text-gray-500 hover:text-indigo-600 transition-colors duration-200">
                 <Instagram className="h-4 w-4" />
               </a>
-              <a href="#" className="text-gray-600 hover:text-indigo-600">
+              <a href="#" className="text-gray-500 hover:text-indigo-600 transition-colors duration-200">
                 <Twitter className="h-4 w-4" />
               </a>
             </div>
@@ -109,7 +112,7 @@ export default function Navbar() {
               <select
                 value={currentLang}
                 onChange={(e) => setCurrentLang(e.target.value)}
-                className="appearance-none rounded text-xs px-2 py-1 text-gray-700 border border-gray-200 bg-gray-50 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                className="appearance-none rounded-md text-xs px-2 py-1 text-gray-700 border border-gray-200 bg-gray-50 focus:outline-none focus:ring-1 focus:ring-indigo-500"
               >
                 {languages.map((lang) => (
                   <option key={lang.code} value={lang.code} className="text-gray-900">
@@ -122,7 +125,7 @@ export default function Navbar() {
             {/* Reservar Button */}
             <Link
               to="/reservar"
-              className="bg-green-600 text-white px-3 py-1 rounded text-xs font-medium hover:bg-green-700 transition-colors"
+              className="bg-indigo-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-indigo-700 transition-colors shadow-sm"
             >
               Reservar
             </Link>
@@ -132,7 +135,7 @@ export default function Navbar() {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md focus:outline-none text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+              className="inline-flex items-center justify-center p-2 rounded-md focus:outline-none text-gray-600 hover:text-indigo-600 hover:bg-gray-100"
             >
               {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
@@ -142,17 +145,18 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="md:hidden bg-white shadow-lg mt-1 mx-4 rounded">
+        <div className="md:hidden bg-white shadow-lg mt-1 mx-4 rounded-lg">
           <div className="px-2 pt-2 pb-3 space-y-1">
             {navLinks.map((link) => (
               <Link 
                 key={link.to}
                 to={link.to} 
-                className={`block px-3 py-2 rounded text-sm font-medium ${
+                className={`block px-3 py-2 rounded-md text-sm font-medium ${
                   isActive(link.to)
                     ? 'text-indigo-600 bg-indigo-50'
                     : 'text-gray-700 hover:text-indigo-600 hover:bg-gray-50'
                 }`}
+                onClick={() => setIsOpen(false)}
               >
                 {link.label}
               </Link>
@@ -174,7 +178,7 @@ export default function Navbar() {
               <select
                 value={currentLang}
                 onChange={(e) => setCurrentLang(e.target.value)}
-                className="block w-auto px-2 py-1 text-xs border border-gray-200 rounded bg-gray-50 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                className="block w-auto px-2 py-1 text-xs border border-gray-200 rounded-md bg-gray-50 focus:outline-none focus:ring-1 focus:ring-indigo-500"
               >
                 {languages.map((lang) => (
                   <option key={lang.code} value={lang.code}>
@@ -186,7 +190,8 @@ export default function Navbar() {
             <div className="mt-3 px-2 space-y-1">
               <Link
                 to="/reservar"
-                className="block px-3 py-2 rounded text-xs font-medium bg-green-600 text-white text-center hover:bg-green-700"
+                className="block px-3 py-2 rounded-md text-sm font-medium bg-indigo-600 text-white text-center hover:bg-indigo-700"
+                onClick={() => setIsOpen(false)}
               >
                 Reservar
               </Link>
