@@ -104,8 +104,18 @@ const ContactPage: React.FC = () => {
 
         <div>
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Ubicación</h2>
-          <div className="bg-gray-200 h-96 rounded-lg flex items-center justify-center">
-            <span className="text-gray-500">Mapa de Google se mostrará aquí</span>
+          <div className="bg-white rounded-lg overflow-hidden shadow-md h-96 flex items-center justify-center">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7570.514239494958!2d-76.36178809413276!3d-6.488485444752143!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91ba0c062708ad1d%3A0x470eec16e5498700!2sPlaza%20de%20Armas%20de%20Tarapoto!5e1!3m2!1ses-419!2spe!4v1743126524133!5m2!1ses-419!2spe" 
+              width="100%" 
+              height="100%" 
+              style={{ border: 0 }} 
+              allowFullScreen 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Ubicación de nuestra empresa"
+              className="w-full h-full"
+            ></iframe>
           </div>
           <div className="mt-6 bg-white p-6 rounded-lg shadow-md">
             <div className="flex items-center mb-4">
