@@ -15,6 +15,22 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         {children}
       </main>
       <Footer />
+      
+      {/* Añadir estilos personalizados para ocultar elementos de Google Translate */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+        /* Ocultar la barra superior de Google Translate */
+        .goog-te-banner-frame {
+          display: none !important;
+        }
+        body {
+          top: 0 !important;
+        }
+        .skiptranslate {
+          display: none !important;
+        }
+        `
+      }} />
     </div>
   );
 };

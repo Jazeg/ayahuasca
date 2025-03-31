@@ -1,6 +1,9 @@
 // src/App.tsx
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+// Componente de traducción
+import Translator from './components/Translator';
+
 // Layouts
 import MainLayout from './layouts/MainLayout';
 
@@ -16,6 +19,9 @@ import BookingPage from './pages/BookingPage';
 function App() {
   return (
     <Router>
+      {/* Componente de traducción (invisible) */}
+      <Translator />
+
       <Routes>
         <Route path="/" element={
           <MainLayout>
