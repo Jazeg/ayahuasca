@@ -18,7 +18,13 @@ import BookingPage from './pages/BookingPage';
 
 function App() {
   return (
-    <Router>
+    <Router
+      // Configurar las future flags manualmente
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true
+      }}
+    >
       {/* Componente de traducción (invisible) */}
       <Translator />
 

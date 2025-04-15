@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { Menu, X, Facebook, Instagram, Twitter, Calendar } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
-  changeLanguage, 
   changeLanguageWithCookie,
   getCurrentLanguage
 } from '../services/translationService';
@@ -18,52 +17,15 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState(localStorage.getItem('preferredLanguage') || 'es');
   const [scrolled, setScrolled] = useState(false);
-  const [translateInitialized, setTranslateInitialized] = useState(false);
   const location = useLocation();
-  
-  // Verificar si Google Translate está inicializado
-  useEffect(() => {
-    const checkTranslateInitialized = () => {
-      const selectElement = document.querySelector('.goog-te-combo');
-      if (selectElement) {
-        setTranslateInitialized(true);
-        
-        // Actualizar el idioma actual en función del selector
-        const selected = getCurrentLanguage();
-        if (selected !== currentLang) {
-          setCurrentLang(selected);
-        }
-        
-        return true;
-      }
-      return false;
-    };
-    
-    // Si ya está inicializado, salir
-    if (translateInitialized || checkTranslateInitialized()) return;
-    
-    // Verificar periódicamente si el selector de Google Translate existe
-    const interval = setInterval(() => {
-      if (checkTranslateInitialized()) {
-        clearInterval(interval);
-      }
-    }, 500);
-    
-    return () => clearInterval(interval);
-  }, [translateInitialized, currentLang]);
 
   // Manejar cambios de idioma
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const langCode = e.target.value;
     setCurrentLang(langCode);
     
-    // Intentar cambiar idioma con el método principal
-    if (translateInitialized) {
-      changeLanguage(langCode);
-    } else {
-      // Si no está inicializado, usar el método de cookies
-      changeLanguageWithCookie(langCode);
-    }
+    // Usar únicamente el método de cookies para cambiar el idioma
+    changeLanguageWithCookie(langCode);
   };
 
   // Efecto para detectar el scroll y cambiar el estilo del navbar
